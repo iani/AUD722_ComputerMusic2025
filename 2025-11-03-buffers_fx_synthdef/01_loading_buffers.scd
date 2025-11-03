@@ -71,6 +71,8 @@ g.play(args: [buf: ~hanbaiki]);
 //: custom period
 g.play(args: [buf: ~hanbaiki, noiseper: 0.25]);
 //:12 add even more parameters: low and high range for Ringz LFNoise
+//Note : this is an exercise - please provide the code.
+//The names of the new arguments are lo and hi
 g = { | buf, noiseper = 5 |
 	var src;
 	src = PlayBuf.ar(buf.numChannels, buf, loop: 1);
