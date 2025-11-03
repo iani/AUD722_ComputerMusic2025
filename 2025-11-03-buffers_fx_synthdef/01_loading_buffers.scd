@@ -59,6 +59,23 @@ g = { | buf |
 };
 //:
 g.play(args: [buf: ~hanbaiki]);
+//:11 Add a second parameter : LFNoise1 period
+g = { | buf, noiseper = 5 |
+	var src;
+	src = PlayBuf.ar(buf.numChannels, buf, loop: 1);
+	Ringz.ar(src, LFNoise1.kr(noiseper.reciprocal).range(400, 4000), 0.01, 0.1);
+};
+//:Run with a different LFNoise1 period
+//: default period
+g.play(args: [buf: ~hanbaiki]);
+//: custom period
+g.play(args: [buf: ~hanbaiki, noiseper: 0.25]);
+//:12 add even more parameters: low and high range for Ringz LFNoise
+g = { | buf, noiseper = 5 |
+	var src;
+	src = PlayBuf.ar(buf.numChannels, buf, loop: 1);
+	Ringz.ar(src, LFNoise1.kr(noiseper.reciprocal).range(400, 4000), 0.01, 0.1);
+};
 //: Try a variant that uses function f:
 h = { | buf |
 	var src;
