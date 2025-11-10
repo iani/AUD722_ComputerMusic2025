@@ -22,6 +22,8 @@ returns:
 	/Users/iani
 Note: The root of the directory on a computer is: "/".
 	"/".standardizePath;
+NOTE: For the following examples, audio files should be mono
+	(1 audio channel). NOT Stereo.
 */
 //----------------------------------------
 //:1 Specify directory audiofiles:
