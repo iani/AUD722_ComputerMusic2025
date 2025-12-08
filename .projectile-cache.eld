@@ -1,0 +1,1 @@
+("2025-11-24_CreatureDraft1.scd" "2025-11-24_CreatureBuffers.scd" "2025-10-20/00_first_steps_making_sound.scd" "2025-10-27-SynthBasics.scd" "2025-11-03-buffers_fx_synthdef/01_loading_buffers.scd" "2025-11-03-buffers_fx_synthdef/02_BufferRate.scd")

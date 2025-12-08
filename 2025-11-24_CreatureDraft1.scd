@@ -6,7 +6,6 @@ check the post window for current settings and adjust accordingly
 */
 Server.default.options.sampleRate = 48000;
 
-
 // A note on asynchronous execution and completion functions.
 // See the SuperCollider help system documentation on asynchronous execution.
 // NOTE, here is how to play a buffer when it is loaded
@@ -14,7 +13,6 @@ Server.default.options.sampleRate = 48000;
 Buffer.read(Server.default, "γράψτε το path και το filename με το extension".standardizePath,
 	action: { | buffer | buffer.play; }
 );
-
 
 // Load a buffer and store it in environment variable for later use.
 ~emro722mono = Buffer.read(Server.default, "γράψτε το path και το filename με το extension".standardizePath);
@@ -26,7 +24,6 @@ Buffer.read(Server.default, "γράψτε το path και το filename με τ
 f = { | buf | PlayBuf.ar(buf.numChannels, buf, loop: 1).dup(2); };
 )
 
-
 // Define a function that modifies looped buffer with an envelope.
 (
 f = { | buf |
@@ -35,7 +32,6 @@ f = { | buf |
 	PlayBuf.ar(buf.numChannels,	buf, loop: 1).dup(2) * env.kr;
 };
 )
-
 
 // Plot the envelope
 Env.adsr.plot;
@@ -51,7 +47,6 @@ Env.adsr.plot;
 ~myCreature.release; // tropos 02, without click
 
 ~myCreature.release(3); // tropos 03, with custom release time
-
 
 // Method 1: Create the buffer and the sinewave as separate synths
 // One must then store and stop both synths.
