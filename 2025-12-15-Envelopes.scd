@@ -131,3 +131,14 @@ c = { Out.kr(b.index, Env.sine.kr(4) * 0.1) }.play;
 
 a release: 5;
 a release: 0.005
+//:Appendix
+/// loop buffer + ring modulation + amp envelope
+(
+~cfrm2 = {
+      var env, body, soul;
+      env = Env([0, 1, 0.3, 0], [0.1, 2.5, 2]); // Atk, Dec, Rel
+      body = PlayBuf.ar(~emro722mono.numChannels, ~emro722mono, rate: [6, 8, 10].choose, loop: 0).dup(2);
+      soul = SinOsc.ar(178, 0, 0.5).dup(2);
+      (body * soul) * env.kr(doneAction: 2);
+};
+)
