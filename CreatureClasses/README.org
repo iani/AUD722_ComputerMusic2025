@@ -1,0 +1,28 @@
+#+title: Readme
+
+How to use this folder and make your own Crature.
+
+* 1. Prepare your audio file for loading.
+
+Your audio file should be a mono (1 channel) wav file.  Its name should be the same as your class name, and the extension should be =.wav=. For example, if your class is named =Cricket= then the audio file should be named =Cricket.wav=.
+
+Your audio file and all audio files of all other creatures should be placed together in a folder named =CreaturesAudio=. The folder =CreaturesAudio= should be directly in your home folder like this: =~/CreaturesAudio/=. 
+
+* 2. Prepare your classes
+
+** 2.1. Put the folder CreatureClasses inside your SuperCollider Extensions folder.
+
+Note: To find the location of the SuperCollider Extensions folder, run this in
+SuperCollider:
+
+#+begin_src sclang
+Platform.userExtensionDir; 
+#+end_src
+
+** 2.2. Recompile the supercollider library (Control-Shift-l).
+
+You should recompile the supercollider library every time that you make a change to any of the classes inside this folder.
+
+* 3. Code the behavior of your creature
+
+* 4. Start the piece 
