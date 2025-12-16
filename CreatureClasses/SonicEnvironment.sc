@@ -1,19 +1,15 @@
 
 SonicEnvironment {
-	classvar default;   // the default environment. 
+	classvar <default;   // the default environment. 
 	var <creatures;
 	var <states;
 	var <currentState;
 	var <task;
 
-	*initClass {
-		Class.initClassTree(ServerBoot);
-		ServerBoot add: { this.default }; // make default, load buffers
-	}
-
 	*start { ^this.default.start }
 	*stop { ^this.default.stop }
-	*default { ^default ?? { default = this.new };}
+	 // made after ServerBoot and loading creature buffers: 
+	*makeDefault { default = this.new } // see Creature:initClass
 
 	*new {^super.new.init;}
 

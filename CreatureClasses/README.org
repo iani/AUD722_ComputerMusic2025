@@ -22,6 +22,23 @@ Platform.userExtensionDir;
 ** 2.2. Recompile the supercollider library (Control-Shift-l).
 
 You should recompile the supercollider library every time that you make a change to any of the classes inside this folder.
+* 3. Create your creature
+** 3.1 Define your creature as a subclass of Creature.
+
+As an example, we will create here a creature class named "Cricket".  It will use a buffer with a recording of crickets.
+
+1. Create a file named =Cricket.sc=
+2. Place the file inside the Extensions directory (see above).
+3. The Cricket creature class must be a subclass of Creature to work. The code for this is:
+
+#+begin_src sclang
+Cricket : Creature {
+	// own methods code placed here:
+	// day { /* code here! */ }
+	// night {  /* code here! */  }
+	// ...
+}
+#+end_src
 
 * 3. Code the behavior of your creature
 

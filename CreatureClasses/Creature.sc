@@ -10,36 +10,62 @@ THis makes it possible to automatically create one instance of each creature and
 */
 
 Creature {
-	classvar <buffer;
-	var <synth;
+	classvar <buffers; // Event with all buffers
+	var <buffer;
 
-	*new {
-		^super.new.loadBuffer;
+	*initClass {
+		Class.initClassTree(ServerBoot);
+		ServerBoot add: {
+			{
+				this.addSynthDefs;
+				Server.default.sync;
+				this.loadBuffers;
+				Server.default.sync;
+				SonicEnvironment.makeDefault;
+			}.fork(AppClock)
+		};
 	}
 
-	buffer { ^buffer } // make classvar available to instance method
-	bufferPlay { ^buffer.play }
+	*loadBuffers {
+		buffers = ();
+		{
+			this.allSubclasses do: _.loadBuffer;
+			Server.default.sync;
+		}.fork(AppClock);
+	}
+	
+	*new {
+		^super.new.init;
+	}
+
+	init {
+		buffer = buffers[this.class.name];
+	}
+
+	*addSynthDefs {
+		// subclasses can add their own synthdefs here
+	}
 	//============================================================ 
 	//        ------------- Buffer loading --------------
 	//============================================================ 
-	loadBuffer {
-		buffer !? { ^this }; // load once only
+	*loadBuffer {
 		postln("Loading buffer for" + this.class.name);
-		postln(this.class.name + "loading buffer from file:" + this.fileName);
 		"Buffer path is:".postln;
 		this.bufferPath.postln;
-		buffer = Buffer.read(Server.default, this.bufferPath);
+		buffers[this.name] = Buffer.read(Server.default, this.bufferPath);
 	}
 
-	bufferPath {
+	*bufferPath {
 		^this.audioFilesFolder +/+ this.fileName;
 	}
 
-	audioFilesFolder { ^"~/CreaturesAudio/".standardizePath }
-	fileName {
+	*audioFilesFolder { ^"~/CreaturesAudio/".standardizePath }
+	*fileName {
 		// subclasses define here the name of the file containing the buffer to be loaded.
-		^this.class.name ++ ".wav";
+		^this.name ++ ".wav";
 	}
+
+	bufferPlay { ^this.buffer.play } // utility: play buffer, return synth
 
 	//============================================================ 
 	//   ------------- sound process interface -----------
