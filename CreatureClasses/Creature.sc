@@ -17,6 +17,8 @@ Creature {
 		^super.new.loadBuffer;
 	}
 
+	buffer { ^buffer } // make classvar available to instance method
+	bufferPlay { ^buffer.play }
 	//============================================================ 
 	//        ------------- Buffer loading --------------
 	//============================================================ 
@@ -43,25 +45,35 @@ Creature {
 	//   ------------- sound process interface -----------
 	//============================================================ 
 
-	set {
-		
+	// set argument/control values of synth
+	set { | ... args |
+		this.changed(\set, args);
 	}
 
+	// substitute all previous processes with this one
+	// play this one for dur seconds
+	substituteTimed {  | process, dur, releaseTime |
+		this.release;
+		{ this.addTimed(process, dur, releaseTime); }.defer;
+	}
 	
-	// release previous and add new
+	// release previous and add new synth or task
 	substitute { | process, releaseTime |
 		this release: releaseTime;
 		this add: process;
 	}
 
-	release { | releaseTime = 3 | 
+	// release all added processes
+	release { | releaseTime = 0.05 | 
 		this.changed(\release, releaseTime);
 	}
 
+	// start tracking process for set, release.
 	add { | process | 
 		^process addModel: this;
 	}
 
+	// add process, and stop it after dur seconds.
 	addTimed { | process, dur = 1, releaseTime = 0.05 |
 		var controller;
 		controller = this add: process;
@@ -72,6 +84,5 @@ Creature {
 			controller.remove;
 		} defer: dur;
 	}
-
 	
 }

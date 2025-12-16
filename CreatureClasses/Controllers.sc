@@ -15,9 +15,14 @@ SynthController : SimpleController {
 			if (synth.isPlaying) { synth release: releaseTime; };
 			this.remove;
 		});
+		this.put(\set, { | model, change, args |
+			if (synth.isPlaying) { synth.set(*args); };
+		});
+		this.put(\map, { | model, change, args |
+			if (synth.isPlaying) { synth.map(*args); };
+		});
 	}
 }
-
 
 TaskController : SimpleController {
 	var <task;
@@ -45,5 +50,4 @@ TaskController : SimpleController {
 + Task {
 	addModel { | model | ^TaskController(model, this); }
 	stopProcess { if (this.isPlaying) { this.stop } }
-
 }
