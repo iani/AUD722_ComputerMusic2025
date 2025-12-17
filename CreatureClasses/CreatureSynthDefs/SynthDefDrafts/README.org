@@ -1,0 +1,4 @@
+#+title: Readme
+
+This folder contains some drafts for synthdef functions.
+

@@ -1,14 +1,26 @@
 
 SonicEnvironment {
-	classvar <default;   // the default environment. 
+	classvar default;   // the default environment. 
 	var <creatures;
-	var <states;
+	var <>states;
 	var <currentState;
 	var <task;
+	var <>releaseTime = 10; // default release time for releasing ending states
+
+	// easy testing of instance methods dawn, day, etc.
+	*doesNotUnderstand { | selector ... args |
+		^this.default.perform(selector, *args);
+	}
+
+	*default {
+		default ?? { this.makeDefault };
+		^default;
+	}
 
 	*start { ^this.default.start }
 	*stop { ^this.default.stop }
-	 // made after ServerBoot and loading creature buffers: 
+	 // made after ServerBoot and loading creature buffers:
+	
 	*makeDefault { default = this.new } // see Creature:initClass
 
 	*new {^super.new.init;}
@@ -16,6 +28,16 @@ SonicEnvironment {
 	init {
 		this.makeStates;
 		this.makeCreatures;
+	}
+
+	stateNames { ^states.clump(2).flop.first }
+	stateTimes { ^states.clump(2).flop.last }
+	cycleDuration { ^this.stateTimes.sum }
+	scaleDurationTo { | newDuration = 600 | // default: 10 minutes
+		var oldDurs, newDurs;
+		oldDurs = this.stateTimes;
+		newDurs = oldDurs * (newDuration / oldDurs.sum);
+		states = [this.stateNames, newDurs].flop.flat;
 	}
 
 	makeStates {
@@ -33,15 +55,14 @@ SonicEnvironment {
 		creatures = Creature.allSubclasses collect: _.new;
 	}
 	
-	test {
-		thisMethod.postln;
-		thisMethod.name.postln;
-		thisMethod.name.class.postln;
-	}
-
 	start {
 		if (task.isPlaying) { ^"SonicEnvironment is already playing".postln; };
 		this.makeTask;
+	}
+
+	stop {
+		task.stop;
+		task = nil;
 	}
 
 	makeTask {
@@ -60,6 +81,7 @@ SonicEnvironment {
 		postln("SonicEnvironment plays state:" + s);
 		currentState = s;
 		creatures do: { | c |
+			c release: releaseTime;
 			if (c respondsTo: s) { c perform: s; }
 		};
 	}

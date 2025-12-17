@@ -2,11 +2,19 @@
 
 How to use this folder and make your own Crature.
 
-* 1. Prepare your audio file for loading.
+* 1. Prepare your audio file(s) for loading.
 
-Your audio file should be a mono (1 channel) wav file.  Its name should be the same as your class name, and the extension should be =.wav=. For example, if your class is named =Cricket= then the audio file should be named =Cricket.wav=.
+** =~/CreaturesAudio/= is the folder for all audio files for the Creature project
 
-Your audio file and all audio files of all other creatures should be placed together in a folder named =CreaturesAudio=. The folder =CreaturesAudio= should be directly in your home folder like this: =~/CreaturesAudio/=. 
+Your audio file and all audio files of all other creatures should be placed together in a folder named =CreaturesAudio=. The folder =CreaturesAudio= should be directly in your home folder like this: =~/CreaturesAudio/=.  You can download the CreatureAudio folder with the files collected by all project members from github, as explained in the next subsection.
+
+** 1.1. Cloning the folder with all audio files from github
+
+Clone the repository https://github.com/iani/CreatureAudio into your home folder. This repository contains the audio files for all creatures.  You should put your own audio file in side this folder.  It will be loaded by your creature class when the server boots.
+
+** 1.2.  Preparing the audio file for your own creature
+
+Your audio file should be a mono (1 channel) wav file.  Its name should be the same as your class name, *in lower case* and the extension should be =.wav=. For example, if your class is named =Cricket= then the audio file should be named =cricket.wav=.
 
 * 2. Prepare your classes
 
@@ -22,10 +30,20 @@ Platform.userExtensionDir;
 ** 2.2. Recompile the supercollider library (Control-Shift-l).
 
 You should recompile the supercollider library every time that you make a change to any of the classes inside this folder.
+
 * 3. Create your creature
 ** 3.1 Define your creature as a subclass of Creature.
 
-As an example, we will create here a creature class named "Cricket".  It will use a buffer with a recording of crickets.
+Each creature is defined by a class whose code is contained in a single file.
+Creature class files are found in folder =CreatureClasses= of the present repository.  Creature classes must be a subclass of =Creature=.  For this purpose, your Creature class definition code must start like this: This is done by writing this in the of the class definition code:
+
+#+begin_src sclang
+Cricket : Creature {
+	// your class code here
+}
+#+end_src
+
+As an example, we will create here a creature class named "Cricket".  It will use a buffer with a recording of crickets.  See 
 
 1. Create a file named =Cricket.sc=
 2. Place the file inside the Extensions directory (see above).

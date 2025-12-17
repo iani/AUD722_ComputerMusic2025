@@ -5,28 +5,27 @@ GeminiCricket().buffer;
 
 */
 
-
 GeminiCricket : Creature {
 	var <chirpTask;
 
-	addSynthDefs {
+	*addSynthDefs {
 		SynthDef(
 			\cricket, {
 				|out=0, buf, amp=0.1, rate=1, pan=0|
 				var sig = PlayBuf.ar(1, buf, BufRateScale.kr(buf) * rate, doneAction:2);
-				Out.ar(out, Pan2.ar(sig, pan) * amp);
+				Out.ar(out, Pan2.ar(sig, pan) * amp * Env.adsr.kr(2, \gate.kr(1)));
 			}
 		).add;
 	}
 
 	// Overwrite default filename method, to load Cricket.wav
-	*fileName { ^"Cricket.wav"; }
+	*fileName { ^"cricket.wav"; }
 
 	// --- State Methods ---
 
 	dawn {
 		//	this.stopChirping;
-		this add: Synth(\panPlaybuf, args: [buf: buffer.bufnum]);
+		this add: Synth(\cricket, args: [buf: buffer.bufnum]);
 	}
 
 	morning {
@@ -58,6 +57,10 @@ GeminiCricket : Creature {
 
 	// --- Helper Methods ---
 
+	release {
+		super.release;
+		this.stopChirping;
+	}
 	startChirping {
 		|rateMin=1, rateMax=2, delayMin=0.2, delayMax=2, amp=0.05|
 		this.stopChirping; // Stop any existing task before starting a new one

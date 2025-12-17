@@ -1,7 +1,7 @@
 
 CreatureSynthDefs {
 	*initClass {
-		ServerBoot add: { this.loadSynthDefs }
+		ServerBoot add: { this.loadSynthDefs };
 	}
 
 	*loadSynthDefs {
