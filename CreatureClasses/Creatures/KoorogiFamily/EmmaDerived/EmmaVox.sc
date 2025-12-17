@@ -1,0 +1,1 @@
+EmmaVox : EmmaDerived { /* method code */ }

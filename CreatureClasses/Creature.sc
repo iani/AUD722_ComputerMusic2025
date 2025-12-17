@@ -11,7 +11,9 @@ THis makes it possible to automatically create one instance of each creature and
 
 Creature {
 	classvar <buffers; // Event with all buffers
-	classvar defaults; // defaults for easy testing
+	classvar defaults; // default Creature instances for easy testing
+	classvar <>defaultBuffer;
+	classvar <>defaultFileName = "cricket.wav";
 	var <buffer;
 
 	// easy testing of instance methods dawn, day, etc.
@@ -58,11 +60,19 @@ Creature {
 	*loadBuffers {
 		buffers = ();
 		{
+			this.loadDefaultBuffer;
 			this.allSubclasses do: _.loadBuffer;
 			Server.default.sync;
 		}.fork(AppClock);
 	}
-	
+
+	*loadDefaultBuffer {
+		var defaultPath;
+		defaultPath = this.audioFilesFolder +/+ defaultFileName;
+		postln("Loading default buffer from:\n" + defaultPath);
+		defaultBuffer = Buffer.read(Server.default, defaultPath);
+	}
+
 	*new {
 		^super.new.init;
 	}
@@ -78,10 +88,18 @@ Creature {
 	//        ------------- Buffer loading --------------
 	//============================================================ 
 	*loadBuffer {
+		var thePath;
 		postln("Loading buffer for" + this.name);
+		thePath = this.bufferPath;
 		"Buffer path is:".postln;
-		this.bufferPath.postln;
-		buffers[this.name] = Buffer.read(Server.default, this.bufferPath);
+		thePath.postln;
+		if (File exists: thePath) {
+			buffers[this.name] = Buffer.read(Server.default, thePath);
+		}{
+			postln("Audiofile path not found:\n" + thePath);
+			"Using default buffer instead".postln;
+			buffers[this.name] = defaultBuffer;
+		}
 	}
 
 	*bufferPath {
@@ -126,6 +144,14 @@ Creature {
 	// start tracking process for set, release.
 	add { | process | 
 		^process addModel: this;
+	}
+
+	addTask { | func |
+		this add: Task(func).play;
+	}
+
+	addLoop { | func |
+		this add: Task({ func.loop }).play;
 	}
 
 	// add process, and stop it after dur seconds.

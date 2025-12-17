@@ -1,0 +1,1 @@
+VelarifictorusMicado : Creature { /* method code */ }

@@ -1,0 +1,1 @@
+TeleogryllusEmma : EmmaKoorogi { /* method code */ }

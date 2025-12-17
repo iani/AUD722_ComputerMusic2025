@@ -1,11 +1,12 @@
 
 SonicEnvironment {
 	classvar default;   // the default environment. 
-	var <creatures;
+	var <>creatures;
 	var <>states;
 	var <currentState;
 	var <task;
 	var <>releaseTime = 10; // default release time for releasing ending states
+	var <>defaultDuration = 15;
 
 	// easy testing of instance methods dawn, day, etc.
 	*doesNotUnderstand { | selector ... args |
@@ -19,6 +20,8 @@ SonicEnvironment {
 
 	*start { ^this.default.start }
 	*stop { ^this.default.stop }
+
+	*
 	 // made after ServerBoot and loading creature buffers:
 	
 	*makeDefault { default = this.new } // see Creature:initClass
@@ -30,6 +33,16 @@ SonicEnvironment {
 		this.makeCreatures;
 	}
 
+	setStates { | argStates |
+		if (argStates[1].isKindOf(SimpleNumber)) {
+			states = argStates;
+		} {
+			var times;
+			times = defaultDuration ! argStates.size;
+			states = [argStates, times].flop.flat;
+		};
+		states.postln;
+	}
 	stateNames { ^states.clump(2).flop.first }
 	stateTimes { ^states.clump(2).flop.last }
 	cycleDuration { ^this.stateTimes.sum }

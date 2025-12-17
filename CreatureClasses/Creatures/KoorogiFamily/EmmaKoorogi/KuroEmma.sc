@@ -1,0 +1,1 @@
+KuroEmma : EmmaKoorogi { /* method code */ }

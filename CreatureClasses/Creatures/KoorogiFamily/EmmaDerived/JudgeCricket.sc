@@ -1,0 +1,1 @@
+JudgeCricket : EmmaDerived { /* method code */ }

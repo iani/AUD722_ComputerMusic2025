@@ -1,0 +1,1 @@
+TwoSpottedCricket : Creature { /* method code */ }

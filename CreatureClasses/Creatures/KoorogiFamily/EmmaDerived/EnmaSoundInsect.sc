@@ -1,0 +1,1 @@
+EnmaSoundInsect : EmmaDerived { /* method code */ }

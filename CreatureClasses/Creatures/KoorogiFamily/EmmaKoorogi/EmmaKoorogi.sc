@@ -1,0 +1,1 @@
+EmmaKoorogi : Creature { /* method code */ }

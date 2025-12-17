@@ -1,0 +1,1 @@
+MikadoKoorogi : VelarifictorusMicado { /* method code */ }
