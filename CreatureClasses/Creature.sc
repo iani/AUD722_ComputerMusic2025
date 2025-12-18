@@ -16,6 +16,8 @@ Creature {
 	classvar <>defaultFileName = "cricket.wav";
 	var <buffer;
 
+	*asInstance { ^this.default }
+	asInstance { ^this }
 	// easy testing of instance methods dawn, day, etc.
 	*doesNotUnderstand { | selector ... args |
 		^this.default.perform(selector, *args);

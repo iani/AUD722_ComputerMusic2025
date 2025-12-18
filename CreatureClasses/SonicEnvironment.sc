@@ -21,7 +21,12 @@ SonicEnvironment {
 	*start { ^this.default.start }
 	*stop { ^this.default.stop }
 
-	*
+	play { | ... argCreatures |
+		if (argCreatures.size > 0) {
+			creatures = argCreatures collect: _.asInstance;
+		};
+		this.start;
+	}
 	 // made after ServerBoot and loading creature buffers:
 	
 	*makeDefault { default = this.new } // see Creature:initClass
