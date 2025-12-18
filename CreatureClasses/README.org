@@ -43,7 +43,7 @@ Cricket : Creature {
 }
 #+end_src
 
-As an example, we will create here a creature class named "Cricket".  It will use a buffer with a recording of crickets.  See 
+As an example, we will create here a creature class named "Cricket".  It will use a buffer with a recording of crickets.  See  
 
 1. Create a file named =Cricket.sc=
 2. Place the file inside the Extensions directory (see above).
@@ -60,4 +60,122 @@ Cricket : Creature {
 
 * 3. Code the behavior of your creature
 
-* 4. Start the piece 
+For any state, write a method with the same name.  The method will run when the SonicEnvironment starts that state. Inside the method, use creature methods to add synths or tasks, release or stop, or substitute synths or tasks, as described below:
+
+** Add synths or tasks
+*** add(<synth or playing task>)
+
+Add a synth or task. This does *not* stop previously running synths or tasks. If you want to stop previously running synths or tasks, call method =release=, or use method =substitute=, which stops previously running processes before addin the new process.
+
+**** Add a synth
+#+begin_src sclang
+	day {
+		this add: { WhiteNoise.ar(0.1).dup }.play;
+	}
+#+end_src
+
+**** Add a task:
+#+begin_src sclang
+	day {
+		this add: Task({ loop { ().play; 1.wait } }).play;
+	}
+#+end_src
+
+*** addTask(<function for task>)
+
+Shortcut for making a task and adding it. Instead of:
+#+begin_src sclang
+	day {
+		this add: Task({ loop { ().play; 1.wait } }).play;
+	}
+#+end_src
+
+write:
+#+begin_src sclang
+	day {
+		this addTask: { loop { ().play; 1.wait } };
+	}
+#+end_src
+
+*** addLoop((<function to be looped in a task>)
+
+Shortcut for looping a function in a task and adding it. Instead of:
+#+begin_src sclang
+	day {
+		this add: Task({ loop { ().play; 1.wait } }).play;
+	}
+#+end_src
+
+write:
+
+#+begin_src sclang
+	day {
+		this addLoop: { ().play; 1.wait };
+	}
+#+end_src
+
+** Add synths or tasks running for predefined duration
+
+*** addTimed(<synth or task>, dur = 1, releaseTime ~ 0.05)
+
+Shortcut to add a synth or task, and stop it after =dur= seconds, with release time =releaseTime=.
+
+#+begin_src sclang
+day {
+		this.addTimed({ WhiteNoise.ar(0.1).dup }.play, 2, 0.3);
+	}
+#+end_src
+
+** Substitute previously running processes with a new one
+
+Stop all previously running processes, and then add a new process.
+
+*** substitute(<synth or task>, releaseTime = 0.05)
+
+#+begin_src sclang
+	day {
+		this.substitute({ LFNoise1.ar(500, 0.1).dup }, 2).play;
+	}
+#+end_src
+
+*** substituteTimed(<synth or task, dur = 1, releaseTime = 0.05 |)
+
+Stop all previously running processes, and then add a new process running for predefined duration =dur=.
+
+#+begin_src sclang
+	day {
+		this.substituteTimed({ LFNoise1.ar(900, 0.1).dup }.play, 0.5, 0.02);
+	}
+#+end_src
+
+
+** Release(releaseTime = 0.05) (stop) all running synths and tasks
+
+Release (stop) all running synths and tasks with releaseTime as release time.
+
+#+begin_src sclang
+	night {
+		this.release(5);
+	}
+#+end_src
+
+
+** Set the parameters of synths
+
+*** set(<parameter1>, <value1>, <parameter2>, <value2>)
+
+#+begin_src sclang
+	night {
+		this.set(\freq, 100);
+	}
+#+end_src
+
+* 4. Recompile the library for changes to take effect.
+
+To load the code saved in Creature subclass definitions, you must recompile the ScClass Library.  The shortcut for this is Command (or Control)-shift-l.
+
+* 5. Start the piece 
+
+#+begin_src sclang
+SonicEnvironment.start;
+#+end_src
