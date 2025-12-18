@@ -1,1 +1,0 @@
-EmmaDerived : Creature { /* method code */ }

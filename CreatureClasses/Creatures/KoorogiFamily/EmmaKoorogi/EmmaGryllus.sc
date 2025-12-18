@@ -1,1 +1,0 @@
-EmmaGryllus : EmmaKoorogi { /* method code */ }

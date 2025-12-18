@@ -1,1 +1,0 @@
-ImperialBurrower : VelarifictorusMicado { /* method code */ }

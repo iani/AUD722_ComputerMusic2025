@@ -1,1 +1,0 @@
-SoundOriented : Creature { /* method code */ }

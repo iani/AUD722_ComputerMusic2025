@@ -1,1 +1,0 @@
-AchetaHome : AchetaDomesticus { /* method code */ }

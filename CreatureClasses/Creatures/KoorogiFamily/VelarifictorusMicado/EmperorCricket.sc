@@ -1,1 +1,0 @@
-EmperorCricket : VelarifictorusMicado { /* method code */ }

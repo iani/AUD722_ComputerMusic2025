@@ -1,1 +1,0 @@
-StridulatorEmma : SoundOriented { /* method code */ }

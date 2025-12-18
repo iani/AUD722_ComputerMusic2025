@@ -1,1 +1,0 @@
-HouseCricket : AchetaDomesticus { /* method code */ }

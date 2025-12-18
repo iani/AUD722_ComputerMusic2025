@@ -1,1 +1,0 @@
-Domesticus : AchetaDomesticus { /* method code */ }

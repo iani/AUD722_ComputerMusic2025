@@ -1,1 +1,0 @@
-Bimaculatus : TwoSpottedCricket { /* method code */ }

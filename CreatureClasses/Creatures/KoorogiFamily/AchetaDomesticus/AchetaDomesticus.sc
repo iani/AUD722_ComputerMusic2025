@@ -1,1 +1,0 @@
-AchetaDomesticus : Creature { /* method code */ }

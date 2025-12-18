@@ -1,1 +1,0 @@
-TaiwanKoorogi : EmmaKoorogi { /* method code */ }

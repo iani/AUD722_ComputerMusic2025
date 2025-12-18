@@ -1,1 +1,0 @@
-TwinStarGryllus : TwoSpottedCricket { /* method code */ }

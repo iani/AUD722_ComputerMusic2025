@@ -1,1 +1,0 @@
-PulseKoorogi : SoundOriented { /* method code */ }

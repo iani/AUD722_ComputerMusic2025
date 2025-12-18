@@ -1,1 +1,0 @@
-GryllusBimaculatus : TwoSpottedCricket { /* method code */ }

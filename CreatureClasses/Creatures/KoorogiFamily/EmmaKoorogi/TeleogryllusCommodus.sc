@@ -1,1 +1,0 @@
-TeleogryllusCommodus : EmmaKoorogi { /* method code */ }

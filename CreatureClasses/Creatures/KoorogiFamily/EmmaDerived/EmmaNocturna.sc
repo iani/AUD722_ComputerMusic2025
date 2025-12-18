@@ -1,1 +1,0 @@
-EmmaNocturna : EmmaDerived { /* method code */ }

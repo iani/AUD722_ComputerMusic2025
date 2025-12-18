@@ -1,1 +1,0 @@
-Micado : VelarifictorusMicado { /* method code */ }

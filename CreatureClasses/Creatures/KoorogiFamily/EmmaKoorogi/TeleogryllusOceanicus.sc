@@ -1,1 +1,0 @@
-TeleogryllusOceanicus : EmmaKoorogi { /* method code */ }

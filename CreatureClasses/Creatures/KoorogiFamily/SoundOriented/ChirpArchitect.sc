@@ -1,1 +1,0 @@
-ChirpArchitect : SoundOriented { /* method code */ }

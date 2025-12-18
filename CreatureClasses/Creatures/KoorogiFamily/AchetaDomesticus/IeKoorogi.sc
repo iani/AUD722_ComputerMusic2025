@@ -1,1 +1,0 @@
-IeKoorogi : AchetaDomesticus { /* method code */ }

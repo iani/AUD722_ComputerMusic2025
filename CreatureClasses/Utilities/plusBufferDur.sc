@@ -1,3 +1,0 @@
-+ Buffer {
-	dur { ^numFrames / sampleRate }
-}
